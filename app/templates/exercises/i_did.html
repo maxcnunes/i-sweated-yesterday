@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+	<form method="POST" action="./i_did" class="form">
+		<h2>I Did</h2>
+		<input type="submit" value="" class="btn-ok" title="I did some exercise yesterday">
+	</form>
+{% endblock %}
+
+
+{% block footer %}
+	<a class="bt-action bt-action-user" href="{{ url_for('users.index') }}">
+		<span>Perfil</span>
+	</a>
+{% endblock %}
