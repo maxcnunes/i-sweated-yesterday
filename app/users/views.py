@@ -1,29 +1,32 @@
+# third party imports
 from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for
 from werkzeug import check_password_hash, generate_password_hash
+from datetime import datetime
+from sqlalchemy.sql import extract, func, or_
 
+# local application imports
 from app import db
 from app.users.forms import RegisterForm, LoginForm
 from app.users.models import User
+from app.users.requests import app_before_request
 from app.users.decorators import requires_login
-from datetime import datetime
-from sqlalchemy.sql import extract, func, or_
-from app.exercises.models import Exercise
 from app.users.constants import SESSION_NAME_USER_ID
+from app.exercises.models import Exercise
+
 
 mod = Blueprint('users', __name__, url_prefix='/users')
+
+
+@mod.before_request
+def before_request():
+	app_before_request()
+
 
 @mod.route('/')
 @mod.route('/me/')
 @requires_login
 def index():
 	return render_template('users/profile.html', user=g.user)
-
-@mod.before_request
-def before_request():
-	# pull user's profile from the db before every request are treated
-	g.user = None
-	if SESSION_NAME_USER_ID in session and session[SESSION_NAME_USER_ID] is not None:
-		g.user = User.query.get(session[SESSION_NAME_USER_ID])
 
 
 @mod.route('/login/', methods=['GET', 'POST'])

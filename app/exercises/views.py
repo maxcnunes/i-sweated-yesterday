@@ -1,22 +1,34 @@
+# third party imports
 from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for
 
+# local application imports
 from app import db
 from app.exercises.forms import ExerciseForm
 from app.exercises.models import Exercise
 from app.exercises.helpers import DateHelper
 from app.users.constants import SESSION_NAME_USER_ID
 from app.users.models import User
+from app.users.requests import app_before_request
+from app.users.decorators import requires_login
 
 
 mod = Blueprint('exercises', __name__, url_prefix='/exercises')
 
+
+@mod.before_request
+def before_request():
+	app_before_request()
+
+
 @mod.route('/')
 @mod.route('/i_did', methods=['GET'])
+@requires_login
 def index():
 	return render_template('exercises/i_did.html')
 
 
 @mod.route('/i_did', methods=['POST'])
+@requires_login
 def idid():
 	# get the date of yesterday and the current user id
 	yesterday = DateHelper.get_yesterday()
