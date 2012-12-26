@@ -66,6 +66,10 @@ div#wrapper{
 	margin-top: 20px;
 }
 
+.content-middle {
+	text-align: center;
+}
+
 
 /* Shadow
 -----------------------------------------------------------------------------*/
@@ -157,7 +161,7 @@ input[type="submit"].btn-ok {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-}
+} 
 
 
 /* Messages
