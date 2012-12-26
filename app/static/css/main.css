@@ -19,15 +19,13 @@ h1
 }	
 h2 {
 	font-size: 36px;
-	font-family: "proxima-nova-1","proxima-nova-2", Arial;
+	font-family: Arial;
 	line-height: 0.9em;
 	margin: 20px 0;
 	text-align: center;
 }
 p{
-
-font-family: "proxima-nova-1","proxima-nova-2", Arial; 
-
+	font-family: Arial; 
 	font-size:14px;
 	line-height:22px;
 	margin-bottom:20px;
@@ -96,6 +94,13 @@ div#wrapper{
   -moz-transform: rotate(3deg);
   -o-transform: rotate(3deg);
 	right: 10px;
+}
+
+
+/* Forms and inner elements
+-----------------------------------------------------------------------------*/
+.form_field .label {
+	display: block;
 }
 
 
