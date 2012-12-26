@@ -1,5 +1,9 @@
+# third party imports
 from flask import g, session
+
+# local application imports
 from app.users.constants import SESSION_NAME_USER_ID
+from app.users.models import User
 
 
 def app_before_request():
