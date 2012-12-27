@@ -50,7 +50,9 @@ div#wrapper{
 	margin:0 auto;
 }
 
-#header { }
+#header { 
+	margin-top: 5px;
+}
 
 #content {
 	padding:10px 20px;
@@ -197,4 +199,12 @@ ul.errors li{
 
 
 
-
+/* Mobile hacks
+-----------------------------------------------------------------------------*/
+@media only screen 
+and (max-device-width : 540px) {
+	/* Styles */
+	div#wrapper{
+		width:90%;
+	}
+}
