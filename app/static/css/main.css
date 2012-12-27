@@ -9,6 +9,7 @@ body
 	color: #43434b;	
 
 }
+
 /* Typography
 -----------------------------------------------------------------------------*/
 
@@ -52,7 +53,7 @@ div#wrapper{
 #header { }
 
 #content {
-	padding:10 20px;
+	padding:10px 20px;
 	background:#FFF;
 	position:relative;
 	-webkit-border-radius: 5px;
@@ -73,9 +74,9 @@ div#wrapper{
 -----------------------------------------------------------------------------*/
 .shadow:before,
 .shadow:after{
-  -webkit-box-shadow: 0 15px 10px 0 rgba(0,0,0, .2);
-  -moz-box-shadow: 0 15px 10px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: 0 15px 10px 0 rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 0 15px 10px 0 rgba(0,0,0, .2);
+	-moz-box-shadow: 0 15px 10px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 15px 10px 0 rgba(0, 0, 0, 0.2);
 	position: absolute;
 	z-index: -1;
 	width: 50%;
@@ -132,7 +133,7 @@ a.bt-action {
 }
 
 a.bt-action span {
-	padding-left:20px;
+	padding-left: 20px;
 }
 
 a.bt-action:hover {
@@ -143,7 +144,7 @@ a.bt-action:hover {
 }
 
 a.bt-action-run span{
-		background:url("../img/running_man.png") no-repeat;
+	background:url("../img/running_man.png") no-repeat;
 }
 
 a.bt-action-user span{
