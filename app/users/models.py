@@ -1,9 +1,12 @@
+# third party imports
+from sqlalchemy.sql import extract, func
+
+# local application imports
 from app import db
 from app.users import constants as USER
 from app.exercises.models import Exercise
-
-from sqlalchemy.sql import extract, func
 from app.exercises.helpers import DateHelper
+
 
 class User(db.Model):
 	# Map model to db table
@@ -52,34 +55,6 @@ class User(db.Model):
 						.filter(Exercise.date >= start_week)
 						.filter(Exercise.date <= end_week)
 						.all())
-		"""
-		current_year = datetime.today().year
-		current_month = datetime.today().month
-
-		weeks_in_year = datetime.today()
-		current_week = int(weeks_in_year.strftime("%W"))
-
-		query = db.session.query(Exercise)\
-						.filter(Exercise.user_id == self.id)\
-						.filter(extract('year', Exercise.date) == current_year)\
-						.filter(extract('month', Exercise.date) == current_month)\
-						.all()
-		
-		count = 0
-		for item in query:
-			if int(item.date.strftime("%W")) == current_week :
-				count += 1
-
-		return count
-		
-		return len(db.session.query(Exercise.id) 
-						.filter(Exercise.user_id == self.id)
-						.filter(extract('year', Exercise.date) == current_year)
-						.filter(func.strftime('%w', Exercise.date) == current_week)
-						#.filter(int(Exercise.date.strftime("%W")) == current_week)
-						.all())
-		#return self.query.filter(User.id == 1).first().id
-		"""
 
 	def getTotalExercisesCurrentMonth(self):
 		current_month = DateHelper.current_month()
