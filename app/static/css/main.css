@@ -71,6 +71,13 @@ div#wrapper{
 	text-align: center;
 }
 
+#home-content {
+	text-align:center;
+}
+
+#profile-results{
+	margin-left: 15px;
+}
 
 /* Shadow
 -----------------------------------------------------------------------------*/

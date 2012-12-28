@@ -3,7 +3,7 @@
 {% block content %}
 	<h2>{{ user.getNameTitle() }}</h2>
 	<b>Results</b>
-	<ul>
+	<ul id="profile-results">
 		<li><b>{{ "%02d" % user.getTotalExercisesCurrentWeek() }}</b> this week</li>
 		<li><b>{{ "%02d" % user.getTotalExercisesCurrentMonth() }}</b> this month</li>
 		<li><b>{{ "%02d" % user.getTotalExercises() }}</b> since the begin</li>
