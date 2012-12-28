@@ -6,7 +6,7 @@ Why **Yesterday**? `Because we always mark the exercise one day after when we ar
 
 
 
-***Visit** [i-sweated-yesterday app](https://maxcnunes.pythonanywhere.com/ "Click here to visit the demo application")* hosted on *pythonanywhere.com* to see the demo application running and ***Download** [version 1.0 here](https://github.com/maxcnunes/i-sweated-yesterday/archive/v1.0.zip)* explained in [this post](http://blog.maxcnunes.net/2012/12/24/desenvolvendo-pequena-aplicacao-web-python-flask/) on  my blog.
+***Visit*** [i-sweated-yesterday app](https://maxcnunes.pythonanywhere.com/ "Click here to visit the demo application") hosted on *pythonanywhere.com* to see the demo application running and ***Download*** [version 1.0 here](https://github.com/maxcnunes/i-sweated-yesterday/archive/v1.0.zip) explained in [this post](http://blog.maxcnunes.net/2012/12/24/desenvolvendo-pequena-aplicacao-web-python-flask/) on  my blog.
 
 
 ***
