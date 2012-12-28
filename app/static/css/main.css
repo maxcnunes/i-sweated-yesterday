@@ -152,6 +152,11 @@ a.bt-action-run span{
 a.bt-action-user span{
 	background:url("../img/user.png") no-repeat;
 }
+
+a.bt-action-home span{
+	background:url("../img/home.png") no-repeat;
+}
+
 #wrapper-logout{
 
 }

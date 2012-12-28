@@ -11,7 +11,7 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
-	return redirect(url_for('users.index'))
+	return render_template('main/index.html')
 
 @app.errorhandler(404)
 def not_found(error):

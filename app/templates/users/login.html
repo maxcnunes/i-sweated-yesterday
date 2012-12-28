@@ -13,6 +13,9 @@
 {% endblock %}
 
 {% block footer %}
+	<a class="bt-action bt-action-home" href="{{ url_for('index') }}">
+		<span>Home</span>
+	</a>
 	<a class="bt-action bt-action-user" href="{{ url_for('users.register') }}">
 		<span>Register</span>
 	</a>
