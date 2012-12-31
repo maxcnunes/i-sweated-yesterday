@@ -1,5 +1,6 @@
 # third party imports
-from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for
+from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for, json, jsonify
+from sqlalchemy.sql import func
 
 # local application imports
 from app import db
@@ -51,3 +52,16 @@ def idid():
 
 	# redirect user to the 'index' method of the user module
 	return redirect(url_for('users.index'))
+
+@mod.route('/general/')
+def general():
+	results = db.session.query(User.name, func.count(User.name).label('total'))\
+						.group_by(User.name)\
+						.filter(Exercise.user_id == User.id)\
+						.all()
+
+
+	# convert to dictonary
+	data = {name: str(total) for (name, total) in results}
+
+	return render_template('exercises/general.html', data=data)

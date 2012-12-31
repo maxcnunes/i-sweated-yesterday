@@ -45,9 +45,16 @@ padding:0;
 
 /* Structure
 -----------------------------------------------------------------------------*/
+div#wrapper, div#wrapper-chart{
+	margin:0 auto;
+}
+
 div#wrapper{
 	width:260px;
-	margin:0 auto;
+}
+
+div#wrapper-chart{
+	width:90%;
 }
 
 #header { 
@@ -164,6 +171,10 @@ a.bt-action-home span{
 	background:url("../img/home.png") no-repeat;
 }
 
+a.bt-action-chart span{
+	background:url("../img/chart.png") no-repeat;
+}
+
 #wrapper-logout{
 
 }
@@ -209,6 +220,12 @@ ul.errors li{
 	color: red;
 }
 
+
+/* Charts
+-----------------------------------------------------------------------------*/
+div#chart {
+    min-height: 400px;
+}
 
 
 /* Mobile hacks
