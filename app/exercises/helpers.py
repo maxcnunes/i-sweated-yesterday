@@ -30,4 +30,22 @@ class DateHelper(object):
 		week = int(weeks_in_year.strftime("%W"))
 
 		return cls.get_start_end_days_week(year, week)
+
+	@staticmethod
+	def datetime_to_string(value):
+		"""Deserialize datetime object into string form for JSON processing."""
+
+		if value is None:
+			return None
+
+		return [value.strftime("%d-%m-%Y"), value.strftime("%H:%M:%S")]
+
+	@staticmethod
+	def date_to_string(value):
+		"""Deserialize date object into string form for JSON processing."""
+
+		if value is None:
+			return None
+
+		return value.strftime("%d-%m-%Y")
 		
