@@ -88,3 +88,8 @@ def logout():
 	# redirect user to the 'index' method of the user module
 	return redirect(url_for('users.login'))
 
+
+@mod.route('/my_reports', methods=['GET'])
+def my_reports():
+	return render_template('users/my_reports.html')
+

@@ -1,6 +1,5 @@
-from flask.ext.wtf import Form, TextField
-from flask.ext.wtf import Required
+from flask.ext.wtf import Form, SelectField
 
-class ExerciseForm(Form):
-	description = TextField('Description')
+class TotalOnWeekByMonthForm(Form):
+	months = SelectField(u'Months', coerce=int)
 	

@@ -1,10 +1,10 @@
 # third party imports
 from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for, json, jsonify
-from sqlalchemy.sql import func
+from sqlalchemy.sql import func, extract, desc
 
 # local application imports
 from app import db
-from app.exercises.forms import ExerciseForm
+from app.exercises.forms import TotalOnWeekByMonthForm
 from app.exercises.models import Exercise
 from app.exercises.helpers import DateHelper
 from app.users.constants import SESSION_NAME_USER_ID
@@ -65,3 +65,36 @@ def general():
 	data = {name: str(total) for (name, total) in results}
 
 	return render_template('exercises/general.html', data=data)
+
+
+@mod.route('/total_on_week_by_month/', methods=['GET','POST'])
+def total_on_week_by_month():
+	results = db.session.query(Exercise.date)\
+						.group_by(extract('year', Exercise.date), extract('month', Exercise.date))\
+						.order_by(desc(Exercise.date))\
+						.filter(Exercise.user_id == g.user.id)\
+						.all()
+
+	form = TotalOnWeekByMonthForm(request.form)
+	form.months.choices = [(DateHelper.generate_id_by_month_year(item.date), 
+							DateHelper.date_to_year_month_string(item.date)) 
+							for item in results]
+
+	if form.validate_on_submit():
+		date_selected = DateHelper.generated_id_by_month_year_to_date(form.months.data)
+
+		results = db.session.query(func.strftime('%W', Exercise.date).label('week'), func.count(Exercise.date).label('total'))\
+						.group_by(func.strftime('%W', Exercise.date))\
+						.filter(extract('month', Exercise.date) == date_selected.month)\
+						.filter(extract('year', Exercise.date) == date_selected.year)\
+						.filter(Exercise.user_id == g.user.id)\
+						.all()
+
+		# convert to dictonary
+		data = {('Week %s on year' % (week)): str(total) for (week, total) in results}
+
+		return render_template('exercises/total_on_week_by_month.html', form=form, data=data)
+	return render_template('exercises/total_on_week_by_month.html', form=form)
+
+
+
