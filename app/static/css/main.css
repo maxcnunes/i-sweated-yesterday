@@ -218,7 +218,7 @@ input[type="submit"].btn-ok {
 }
 
 ul.errors{
-	margin: 2px 0;
+	margin: 2px 0 0 20px;
 }
 
 ul.errors li{
