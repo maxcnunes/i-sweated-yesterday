@@ -17,15 +17,11 @@ var data_items = [
 
 {% set wrapper_type = "-chart" %}
 
-{% block logout %}<!-- remove btn logout -->{% endblock %}
-
 
 {% block content %}
     <!-- Include more content here or below the chart, using Flask / Jinja. -->
-    <div id="content">
-        <h1>General exercises since the begin</h1>
-        <div id="chart"></div>
-    </div>
+    <h1>General exercises since the begin</h1>
+    <div id="chart"></div>
 {% endblock %}
 
 
@@ -33,7 +29,14 @@ var data_items = [
     <a class="bt-action bt-action-home" href="{{ url_for('index') }}">
         <span>Home</span>
     </a>
-    <a class="bt-action bt-action-user" href="{{ url_for('users.login') }}">
-        <span>Login</span>
-    </a>
+
+    {% if not session.user_id %}
+        <a class="bt-action bt-action-user" href="{{ url_for('users.login') }}">
+            <span>Login</span>
+        </a>
+    {% else %}
+        <a class="bt-action bt-action-user" href="{{ url_for('users.index') }}">
+            <span>Profile</span>
+        </a>
+    {% endif %}
 {% endblock %}

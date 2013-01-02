@@ -15,7 +15,7 @@
 		<div id="wrapper{{ wrapper_type }}">
 			<div id="header">
 				{% block header %}
-				<h1>I Sweated Yesterday</h1>
+				<h1><a id="link-title-home" href="{{ url_for('index') }}">I Sweated Yesterday</a></h1>
 				{% endblock %}
 				
 			</div>
@@ -25,13 +25,15 @@
 				{% endfor %}
 			</div>
 			<div id="content" class="shadow">
-				{% block logout %}
-				<a class="bt-action-logout" href="{{ url_for('users.logout') }}">
+
+				{%- if user %}
+			    <a class="bt-action-logout" href="{{ url_for('users.logout') }}">
 					Logout
 				</a>
-				{% endblock %}
-				
-				{% block content %}{% endblock %}</div>
+			    {%- endif %}
+
+				{% block content %}{% endblock %}
+			</div>
 			<div id="footer">{% block footer %}{% endblock %}</div>
 		</div>
 	</body>

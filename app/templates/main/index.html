@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 
-{% block logout %}<!-- remove btn logout -->{% endblock %}
-
 {% block content %}
 	<div id="home-content">
 		<img src="/static/img/fitness.png" alt="Fitness">
@@ -16,9 +14,19 @@
 
 
 {% block footer %}
-	<a class="bt-action bt-action-user" href="{{ url_for('users.login') }}">
-		<span>Login</span>
-	</a>
+
+	{% if not session.user_id %}
+	    <a class="bt-action bt-action-user" href="{{ url_for('users.login') }}">
+	        <span>Login</span>
+	    </a>
+	{% else %}
+	    <a class="bt-action bt-action-user" href="{{ url_for('users.index') }}">
+	        <span>Profile</span>
+	    </a>
+	{% endif %}
+
+
+
 	<a class="bt-action bt-action-chart" href="{{ url_for('exercises.general') }}">
 		<span>General Chart</span>
 	</a>
