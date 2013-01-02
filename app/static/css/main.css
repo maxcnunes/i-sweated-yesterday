@@ -241,4 +241,9 @@ and (max-device-width : 540px) {
 	div#wrapper{
 		width:90%;
 	}
+
+	div#chart:before{
+		content: "Better view on a bigger screen";
+		color:#e74f20;
+	}
 }
