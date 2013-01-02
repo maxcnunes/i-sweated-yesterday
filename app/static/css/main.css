@@ -13,8 +13,7 @@ body
 /* Typography
 -----------------------------------------------------------------------------*/
 
-h1
-	{
+h1 {
 	font-size: 1em;
 	margin-bottom: 1.5em;
 }	
@@ -233,7 +232,9 @@ input[type="submit"].btn-ok {
 	border-radius: 5px;
 } 
 
-
+#link-title-home{
+	color:#43434b;
+}
 
 
 /* Messages
