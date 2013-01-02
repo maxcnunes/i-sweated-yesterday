@@ -9,3 +9,14 @@ def requires_login(f):
 			return redirect(url_for('users.login', next=request.path))
 		return f(*args, **kwargs)
 	return decorated_function
+
+
+def redirect_to_profile_logged_users(f):
+	@wraps(f)
+	def decorated_function(*args, **kwargs):
+		# verify if the user is already logged
+		if g.user is not None:
+			flash(u'You are already logged. To access that page do the logout before.')
+			return redirect(url_for('users.index'))
+		return f(*args, **kwargs)
+	return decorated_function

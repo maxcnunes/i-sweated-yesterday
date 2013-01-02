@@ -9,7 +9,7 @@ from app import db
 from app.users.forms import RegisterForm, LoginForm
 from app.users.models import User
 from app.users.requests import app_before_request
-from app.users.decorators import requires_login
+from app.users.decorators import requires_login, redirect_to_profile_logged_users
 from app.users.constants import SESSION_NAME_USER_ID
 from app.exercises.models import Exercise
 
@@ -30,8 +30,10 @@ def index():
 
 
 @mod.route('/login/', methods=['GET', 'POST'])
+@redirect_to_profile_logged_users
 def login():
 	form = LoginForm(request.form)
+
 	# make sure data are valid, but doesn't validate password is right
 	if form.validate_on_submit():
 		user = User.query.filter_by(email=form.email.data).first()
@@ -47,6 +49,7 @@ def login():
 
 
 @mod.route('/register/', methods=['GET', 'POST'])
+@redirect_to_profile_logged_users
 def register():
 	form = RegisterForm(request.form)
 
