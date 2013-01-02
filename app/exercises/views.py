@@ -55,34 +55,39 @@ def idid():
 
 @mod.route('/general/')
 def general():
+	# get the total of exercises every user have done since the begin
 	results = db.session.query(User.name, func.count(User.name).label('total'))\
 						.group_by(User.name)\
 						.filter(Exercise.user_id == User.id)\
 						.all()
 
-
-	# convert to dictonary
+	# convert list to dictonary
 	data = {name: str(total) for (name, total) in results}
 
 	return render_template('exercises/general.html', data=data)
 
 
 @mod.route('/total_on_week_by_month/', methods=['GET','POST'])
+@requires_login
 def total_on_week_by_month():
-	results = db.session.query(Exercise.date)\
+	# get all months a user have done exercises
+	all_months = db.session.query(Exercise.date)\
 						.group_by(extract('year', Exercise.date), extract('month', Exercise.date))\
 						.order_by(desc(Exercise.date))\
 						.filter(Exercise.user_id == g.user.id)\
 						.all()
 
 	form = TotalOnWeekByMonthForm(request.form)
+	# set all months as options of SELECT element on the form
 	form.months.choices = [(DateHelper.generate_id_by_month_year(item.date), 
 							DateHelper.date_to_year_month_string(item.date)) 
-							for item in results]
+							for item in all_months]
 
+	# when is a POST action
 	if form.validate_on_submit():
 		date_selected = DateHelper.generated_id_by_month_year_to_date(form.months.data)
 
+		# get the total exercises a user have done per week on a selected month
 		results = db.session.query(func.strftime('%W', Exercise.date).label('week'), func.count(Exercise.date).label('total'))\
 						.group_by(func.strftime('%W', Exercise.date))\
 						.filter(extract('month', Exercise.date) == date_selected.month)\
@@ -90,7 +95,7 @@ def total_on_week_by_month():
 						.filter(Exercise.user_id == g.user.id)\
 						.all()
 
-		# convert to dictonary
+		# convert list to dictonary
 		data = {('Week %s on year' % (week)): str(total) for (week, total) in results}
 
 		return render_template('exercises/total_on_week_by_month.html', form=form, data=data)
