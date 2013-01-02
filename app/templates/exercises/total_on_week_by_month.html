@@ -28,7 +28,7 @@ var data_items = [
 	<form method="POST" action="." class="form">
 		{{ form.csrf_token }}
 		{{ render_field(form.months, class="input text") }}
-		<input type="submit" value="Generate Chart" class="button green">
+		<input type="submit" value="Generate Chart">
 	</form>
 
 	{%- if data %}
