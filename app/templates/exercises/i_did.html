@@ -1,11 +1,27 @@
 {% extends "base.html" %}
 
+{% block script %}
+<link rel="stylesheet" href="/static/css/jquery-ui-redmond/jquery-ui-1.9.2.custom.min.css" />
+<script type="text/javascript" src="/static/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" src="/static/js/i-did-exercise.js"></script>
+{% endblock %}
 
 {% block content %}
+	{% from "forms/macros.html" import render_field %}
 	<form method="POST" action="./i_did" class="form">
+		{{ form.csrf_token }}
 		<h2>I Did</h2>
+		{{ render_field(form.date_exercise_type) }}
+		<h3>
+			<span id="date-selected" title="year/month/day"></span>
+			{{ form.date_exercise() }}
+			<a class="bt-select-date" href="" title="select a date">
+			</a>
+		</h3>
+		<div id="datepicker"></div>
 		<div class="content-middle">
-			<input type="submit" value="" class="btn-ok" title="I did some exercise yesterday">
+			<input type="submit" value="" class="btn-ok">
 			<em>Click on the OK hand to confirm</em>
 		</div>
 	</form>

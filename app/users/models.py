@@ -65,13 +65,11 @@ class User(db.Model):
 						.all())
 
 
-	def alreadyDidExerciseYesterday(self):
-
-		yesterday = DateHelper.get_yesterday()
+	def alreadyDidExercise(self, date_exercise):
 
 		return (len(db.session.query(Exercise.id) 
 						.filter(Exercise.user_id == self.id)
-						.filter(Exercise.date == yesterday)
+						.filter(Exercise.date == date_exercise)
 						.all()) > 0)
 
 	def __repr__():

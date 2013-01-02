@@ -4,7 +4,7 @@ from sqlalchemy.sql import func, extract, desc
 
 # local application imports
 from app import db
-from app.exercises.forms import TotalOnWeekByMonthForm
+from app.exercises.forms import IDidExerciseForm, TotalOnWeekByMonthForm
 from app.exercises.models import Exercise
 from app.exercises.helpers import DateHelper
 from app.users.constants import SESSION_NAME_USER_ID
@@ -25,23 +25,31 @@ def before_request():
 @mod.route('/i_did', methods=['GET'])
 @requires_login
 def index():
-	return render_template('exercises/i_did.html')
+	form = IDidExerciseForm(request.form)
+	return render_template('exercises/i_did.html', form=form)
 
 
 @mod.route('/i_did', methods=['POST'])
 @requires_login
 def idid():
-	# get the date of yesterday and the current user id
-	yesterday = DateHelper.get_yesterday()
-	user_id = session[SESSION_NAME_USER_ID]
+	form = IDidExerciseForm(request.form)
+
+	# get the exercise date
+	if(form.date_exercise_type.data == 'yesterday'):
+		date_exercise = DateHelper.get_yesterday()
+	else:
+		date_exercise = DateHelper.string_to_date(form.date_exercise.data)
+
+	if date_exercise > DateHelper.get_current_date().date():
+		flash('Exercise date can not be newer than today')
+		return render_template('exercises/i_did.html', form=form)
+
+	if g.user.alreadyDidExercise(date_exercise):
+		flash('You already did exercise on this date: %s' % date_exercise)
+		return render_template('exercises/i_did.html', form=form)
 	
 	# create a new object to exercise
-	exercise = Exercise(yesterday, user_id)
-
-	user = User(user_id)
-	if user.alreadyDidExerciseYesterday():
-		flash('You already did exercise yesterday')
-		return render_template('exercises/i_did.html')
+	exercise = Exercise(date_exercise, g.user.id)
 
 	# insert the record in our db and commit it
 	db.session.add(exercise)

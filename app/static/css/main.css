@@ -25,6 +25,11 @@ h2 {
 	margin: 20px 0;
 	text-align: center;
 }
+h3 {
+	color: #A0D100;
+	font-size: 24px;
+	text-align: center;
+}
 p{
 	font-family: Arial; 
 	font-size:14px;
@@ -125,7 +130,25 @@ div#wrapper-chart{
 	display: block;
 }
 
+#date_exercise_type {
+	list-style: none;
+	margin-bottom: 3px;
+	overflow: hidden;
+}
 
+#date_exercise_type li {
+	display: inline;
+	float: left;
+	margin: 0px 5px;
+}
+
+.clear {
+	clear: both;
+}
+
+.w75 {
+	width: 75px;
+}
 
 /* Buttons and Links
 -----------------------------------------------------------------------------*/
@@ -187,6 +210,14 @@ a.bt-action-logout {
 	float: right;
 }
 
+a.bt-select-date {
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	vertical-align: middle;
+	background: url(../img/calendar.png) no-repeat center;
+}
+
 
 input[type="submit"].btn-ok {
 	background: #ededed url(../img/ok.png) no-repeat center;
@@ -201,6 +232,8 @@ input[type="submit"].btn-ok {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 } 
+
+
 
 
 /* Messages

@@ -51,7 +51,7 @@ class DateHelper(object):
 		if value is None:
 			return None
 
-		return [value.strftime("%d-%m-%Y"), value.strftime("%H:%M:%S")]
+		return [value.strftime("%Y/%m/%d"), value.strftime("%H:%M:%S")]
 
 	@staticmethod
 	def date_to_string(value):
@@ -60,7 +60,17 @@ class DateHelper(object):
 		if value is None:
 			return None
 
-		return value.strftime("%d-%m-%Y")
+		return value.strftime("%Y/%m/%d")
+
+	@staticmethod
+	def string_to_date(value):
+
+		if value is None:
+			return None
+
+		return datetime.strptime(value, '%Y/%m/%d').date()
+
+	
 
 	@staticmethod
 	def date_to_year_month_string(value):
@@ -69,7 +79,7 @@ class DateHelper(object):
 		if value is None:
 			return None
 
-		return value.strftime("%m-%Y")
+		return value.strftime("%Y/%m")
 		
 
 	@staticmethod
