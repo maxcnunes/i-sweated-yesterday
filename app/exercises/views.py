@@ -4,7 +4,7 @@ from sqlalchemy.sql import func, extract, desc
 
 # local application imports
 from app import db
-from app.exercises.forms import IDidExerciseForm, TotalOnWeekByMonthForm
+from app.exercises.forms import IDidExerciseForm, TotalOnWeekByMonthForm, ExercisesByMonthForm
 from app.exercises.models import Exercise
 from app.exercises.helpers import DateHelper
 from app.users.constants import SESSION_NAME_USER_ID
@@ -110,4 +110,62 @@ def total_on_week_by_month():
 	return render_template('exercises/total_on_week_by_month.html', form=form)
 
 
+@mod.route('/exercises_by_month/', methods=['GET','POST'])
+@requires_login
+def exercises_by_month():
 
+	# get all months a user have done exercises
+	all_months = db.session.query(Exercise.date)\
+						.group_by(extract('year', Exercise.date), extract('month', Exercise.date))\
+						.order_by(desc(Exercise.date))\
+						.filter(Exercise.user_id == g.user.id)\
+						.all()
+
+	form = ExercisesByMonthForm(request.form)
+	# set all months as options of SELECT element on the form
+	form.months.choices = [(DateHelper.generate_id_by_month_year(item.date), 
+							DateHelper.date_to_year_month_string(item.date)) 
+							for item in all_months]
+
+	#
+	# GET
+	#
+	if request.method == 'GET':
+		return render_template('exercises/exercises_by_month.html', form=form)
+
+	#
+	# POST
+	#
+	if request.form["action"] == "Search":
+		exercises = get_exercises_by_month(form.months.data)
+
+	elif request.form["action"] == "Delete":
+		if not request.form.getlist('do_delete'):
+			exercises = get_exercises_by_month(form.months.data)
+			flash('Select least one exercise to delete')
+		else:
+			for id_exercise in request.form.getlist('do_delete'):
+				# get exercise by id
+				exercise = Exercise.query.get(int(id_exercise))
+				# delete
+				db.session.delete(exercise)
+			
+			# commit
+			db.session.commit()
+
+			flash('Exercise(s) was(were) deleted successfully', 'success')
+			return redirect(url_for('users.index'))
+
+	return render_template('exercises/exercises_by_month.html', exercises=exercises, form=form)
+
+
+def get_exercises_by_month(date_search):
+	date_selected = DateHelper.generated_id_by_month_year_to_date(date_search)
+
+	exercises = db.session.query(Exercise)\
+		.filter(Exercise.user_id == g.user.id)\
+		.filter(extract('month', Exercise.date) == date_selected.month)\
+		.filter(extract('year', Exercise.date) == date_selected.year)\
+		.all()
+
+	return exercises

@@ -11,10 +11,25 @@
 {% endblock %}
 
 {% block footer %}
-	<a class="bt-action bt-action-run" href="{{ url_for('exercises.idid') }}">
-		<span>I Sweated Yesterday</span>
-	</a>
-	<a class="bt-action bt-action-chart" href="{{ url_for('users.my_reports') }}">
-		<span>Charts</span>
-	</a>
+	<div style="float:left; width:60%">
+		<a class="bt-action bt-action-run" href="{{ url_for('exercises.idid') }}" style="width:90%">
+			<span style="height: 49px;
+text-align: center;
+line-height: 25px;
+font-size: 15px;">I Sweated Yesterday</span>
+		</a>
+	</div>
+
+	<div style="float:left; width:40%">
+		<a class="bt-action bt-action-list" href="{{ url_for('exercises.exercises_by_month') }}" style="width:90%">
+			<span>Exercises</span>
+		</a>
+		<a class="bt-action bt-action-chart" href="{{ url_for('users.my_reports') }}" style="width:90%">
+			<span>Charts</span>
+		</a>
+	</div>
+
+	
+
+
 {% endblock %}

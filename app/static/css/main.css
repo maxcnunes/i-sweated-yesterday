@@ -173,10 +173,14 @@ a.bt-action {
 	font-weight:bold;
 	float:left;
 	margin-right: 5px;
+	margin-bottom: 5px;
 }
 
 a.bt-action span {
 	padding-left: 20px;
+	display: block;
+	background-repeat: no-repeat;
+	background-position: left center;
 }
 
 a.bt-action:hover {
@@ -187,19 +191,23 @@ a.bt-action:hover {
 }
 
 a.bt-action-run span{
-	background:url("../img/running_man.png") no-repeat;
+	background-image: url("../img/running_man.png");
 }
 
 a.bt-action-user span{
-	background:url("../img/user.png") no-repeat;
+	background-image: url("../img/user.png");
 }
 
 a.bt-action-home span{
-	background:url("../img/home.png") no-repeat;
+	background-image: url("../img/home.png");
 }
 
 a.bt-action-chart span{
-	background:url("../img/chart.png") no-repeat;
+	background-image: url("../img/chart.png");
+}
+
+a.bt-action-list span{
+	background-image: url("../img/list.png");
 }
 
 #wrapper-logout{

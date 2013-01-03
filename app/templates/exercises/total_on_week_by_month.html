@@ -22,11 +22,10 @@ var data_items = [
 {% set wrapper_type = "-chart" %}
 
 {% block content %}
-	{% from "forms/macros.html" import render_field %}
+	{% from "forms/macros.html" import render_select_search_field %}
 	<form method="POST" action="." class="form">
 		{{ form.csrf_token }}
-		{{ render_field(form.months, class="input text") }}
-		<input type="submit" value="Generate Chart">
+		{{ render_select_search_field(form.months, value_button="Generate Chart") }}
 	</form>
 
 	{%- if data %}

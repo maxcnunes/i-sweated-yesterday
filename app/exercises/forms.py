@@ -6,10 +6,13 @@ class IDidExerciseForm(Form):
 								validators=[Required()],
 								choices=[('yesterday', 'Yesterday'), ('another_day', 'Another day')],
 								default='yesterday')
-	xxx = DateHelper.get_current_date();
+
 	date_exercise = HiddenField(default=DateHelper.date_to_string(DateHelper.get_yesterday()), 
 								id='date_exercise')
 
 class TotalOnWeekByMonthForm(Form):
+	months = SelectField(u'Months', coerce=int)
+
+class ExercisesByMonthForm(Form):
 	months = SelectField(u'Months', coerce=int)
 	

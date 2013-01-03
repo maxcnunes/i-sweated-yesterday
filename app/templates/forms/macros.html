@@ -14,3 +14,13 @@
 	{% endif %}
 	</div>
 {% endmacro %}
+
+
+
+{% macro render_select_search_field(field, value_button) %}
+	<div class="form_field">
+	{{ field.label(class="label") }}
+	{{ field(**kwargs) }}
+	<input type="submit" value="{{value_button}}" name="action">
+	</div>
+{% endmacro %}

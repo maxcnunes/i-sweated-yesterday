@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h2>Exercises</h2>
+	{% from "forms/macros.html" import render_select_search_field %}
+	<form method="POST" action="." class="form">
+		{{ form.csrf_token }}
+		{{ render_select_search_field(form.months, value_button="Search") }}
+		<br />
+		{% if exercises %}
+		<hr />
+	    <table>
+	        {% for exercise in exercises %}
+	            <tr>
+	                <td><input type="checkbox" name="do_delete" value="{{ exercise['id'] }}"></td>
+	                <td>{{ exercise['date'] }}</td>
+	            </tr>
+	        {% endfor %}
+	    </table>
+	    Delete all selected:
+	    <input type="submit" value="Delete" name="action">
+	    {% endif %}
+	</form>
+{% endblock %}
+
+{% block footer %}
+	<a class="bt-action bt-action-user" href="{{ url_for('users.index') }}">
+		<span>Profile</span>
+	</a>
+{% endblock %}

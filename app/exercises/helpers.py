@@ -88,7 +88,7 @@ class DateHelper(object):
 		if value is None:
 			return None
 
-		return int(value.strftime("%m") + value.strftime("%Y"))
+		return int(value.strftime("%Y") + value.strftime("%m"))
 
 	@staticmethod
 	def generated_id_by_month_year_to_date(value):
@@ -96,7 +96,9 @@ class DateHelper(object):
 		if value is None:
 			return None
 
-		month = int(str(value)[:2])
-		year = int(str(value)[2:])
+		value = '%06d' % value
+
+		year = int(value[:4])
+		month = int(value[4:])
 
 		return date(year,month,1)
