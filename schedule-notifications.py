@@ -1,0 +1,4 @@
+from app.users.notifications import send_email_to_users_have_forgotten_add_last_exercise
+
+# send notification
+send_email_to_users_have_forgotten_add_last_exercise()
