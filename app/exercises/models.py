@@ -10,7 +10,7 @@ class Exercise(db.Model):
 		self.date = date
 		self.user_id = user_id
 
-	def __repr__():
+	def __repr__(self):
 		return '<Exercise %r>' % (self.id)
 
 

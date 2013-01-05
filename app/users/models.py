@@ -74,5 +74,5 @@ class User(db.Model):
 						.filter(Exercise.date == date_exercise)
 						.all()) > 0)
 
-	def __repr__():
+	def __repr__(self):
 		return '<User %r>' % (self.name)
