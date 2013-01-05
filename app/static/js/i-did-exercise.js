@@ -34,14 +34,17 @@ function get_yesterday () {
 }
 
 function prepare_select_date(){
+    var yesterday = get_yesterday();
+    
     var selected_field = $('input:radio:checked', '#date_exercise_type');
     if (selected_field.is('[value="another_day"]')) {
+        $('#datepicker').datepicker('setDate', yesterday);
         $('.bt-select-date').show();
     } else {
         $('.bt-select-date').hide();
         $('#datepicker').slideUp();
 
-        $('#date-selected').text(get_yesterday());
-        $('#date_exercise').val(get_yesterday());
+        $('#date-selected').text(yesterday);
+        $('#date_exercise').val(yesterday);
     }
 }
