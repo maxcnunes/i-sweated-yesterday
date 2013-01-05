@@ -16,6 +16,8 @@ class User(db.Model):
 	password = db.Column(db.String(20))
 	role = db.Column(db.SmallInteger, default=USER.USER)
 	status = db.Column(db.SmallInteger, default=USER.NEW)
+	email_exercise_token = db.Column(db.String(50))
+	receive_email_notification = db.Column(db.Boolean(), default=False)
 	exercises = db.relationship('Exercise', backref='user', lazy='dynamic')
 
 	# Class Constructor

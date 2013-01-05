@@ -4,6 +4,7 @@ from werkzeug import check_password_hash, generate_password_hash
 from datetime import datetime
 from sqlalchemy.sql import or_
 
+
 # local application imports
 from app import db
 from app.users.forms import RegisterForm, LoginForm

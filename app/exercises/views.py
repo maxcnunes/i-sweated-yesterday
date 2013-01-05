@@ -1,5 +1,5 @@
 # third party imports
-from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for, json, jsonify
+from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for, abort
 from sqlalchemy.sql import func, extract, desc
 
 # local application imports
@@ -157,6 +157,34 @@ def exercises_by_month():
 			return redirect(url_for('users.index'))
 
 	return render_template('exercises/exercises_by_month.html', exercises=exercises, form=form)
+
+
+@mod.route("/mark_exercise_by_email/<email_token>", methods=['GET'])
+def mark_exercise_by_email(email_token):
+
+	date_exercise = DateHelper.get_yesterday()
+
+	user = User.query.filter_by(email_exercise_token=email_token).first()
+
+	if(user is None):
+		flash('Operation not allowed')
+		return abort(404)
+
+	if user.alreadyDidExercise(date_exercise):
+		flash('You already did exercise on this date: %s' % date_exercise)
+		return redirect(url_for('index'))
+
+	# create a new object to exercise
+	exercise = Exercise(date_exercise, user.id)
+
+	# insert the record in our db and commit it
+	db.session.add(exercise)
+	db.session.commit()
+
+	# display a message to the user
+	flash('Keep fitness and do it again tomorrow')
+
+	return redirect(url_for('index'))
 
 
 def get_exercises_by_month(date_search):
