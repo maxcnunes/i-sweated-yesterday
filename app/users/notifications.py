@@ -1,7 +1,9 @@
 from flask.ext.mail import Message
 from threading import Thread
 import uuid
+import logging
 
+import app
 from app import mail_sender
 from app.users.decorators import async
 from app import db
@@ -9,14 +11,28 @@ from app.exercises.helpers import DateHelper
 from app.users.models import User
 from app.exercises.models import Exercise
 
+# Config Log
+logging.basicConfig(
+	filename='log_notifications.log',
+	level=logging.INFO,
+	format='%(asctime)s %(message)s', 
+	datefmt='%m/%d/%Y %I:%M:%S %p'
+)
 
 
 def send_email_to_users_have_forgotten_add_last_exercise():
+	logging.info('\n')
+	logging.info('Start send e-mails notificatios')
+
 	reset_exercise_token_all_users()
+	logging.info('Reseted token e-mails of all users')
 
 	url_app = u'http://maxcnunes.pythonanywhere.com/'
 	
-	for user in get_all_users_want_receive_mail_notification():
+	users_to_send_notifications = get_all_users_want_receive_mail_notification()
+	logging.info('Amount of users to send notification: %02d', len(users_to_send_notifications))
+
+	for user in users_to_send_notifications:
 		user.email_exercise_token = str(uuid.uuid1())
 
 		url_confirmation = '%sexercises/mark_exercise_by_email/%s' % (url_app, user.email_exercise_token)
@@ -29,9 +45,13 @@ def send_email_to_users_have_forgotten_add_last_exercise():
 				'<a href="' + url_app + '">here</a>'
 
 		send_async_email('I sweated yesterday - Notification', user.email, msg)
+		logging.info('Notification sent to %s', user.name)
 
 	
 	db.session.commit()
+	logging.info('Commit changes in to database')
+
+	logging.info('End send e-mails notificatios')
 
 
 def get_all_users_want_receive_mail_notification():
