@@ -1,0 +1,13 @@
+Flask==0.9
+Flask-Mail==0.7.4
+Flask-SQLAlchemy==0.16
+Flask-WTF==0.8.2
+Jinja2==2.6
+PIL==1.1.7
+SQLAlchemy==0.8.0b2
+WTForms==1.0.2
+Werkzeug==0.8.3
+argparse==1.2.1
+blinker==1.2
+simplejson==3.0.5
+wsgiref==0.1.2
