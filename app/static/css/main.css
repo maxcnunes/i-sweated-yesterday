@@ -151,6 +151,8 @@ div#wrapper-chart{
 
 /* Buttons and Links
 -----------------------------------------------------------------------------*/
+
+/* DEFAULT */
 a.bt-action {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;
@@ -190,6 +192,30 @@ a.bt-action:hover {
 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
 }
 
+/* GREEN */
+a.bt-action-green {
+	color: #43434B;
+	background: #A0D100; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bcde4c', endColorstr='#A0D100'); /* for IE 9-*/
+	background-image: -ms-linear-gradient(top, #bcde4c 0%, #A0D100 100%);/* for IE 10+*/
+	background: -moz-linear-gradient(top,#bcde4c 0%,#A0D100 99%,#90bc00);/* for firefox 3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom,from(#bcde4c),color-stop(0.99, #A0D100),to(#90bc00));/* for webkit browsers */
+	border-color: #cfe87f;
+	-moz-box-shadow:0px 2px 2px rgba(144, 188, 0, 1),inset 0px 1px 0px rgba(255,255,255,0.3);
+	-webkit-box-shadow:0px 2px 2px rgba(144, 188, 0, 1),inset 0px 1px 0px rgba(255,255,255,0.3);
+	box-shadow:0px 2px 2px rgba(144, 188, 0, 1),inset 0px 1px 0px rgba(255,255,255,0.3);
+}
+
+
+a.bt-action-green:hover {
+	background: #d9ec99;
+	background: -webkit-gradient(linear, left top, left bottom, from(#d9ec99), to(#bcde4c));
+	background: -moz-linear-gradient(top,  #d9ec99,  #bcde4c);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#d9ec99', endColorstr='#bcde4c');
+}
+
+/* ICONS */
+
 a.bt-action-run span{
 	background-image: url("../img/running_man.png");
 }
@@ -208,6 +234,10 @@ a.bt-action-chart span{
 
 a.bt-action-list span{
 	background-image: url("../img/list.png");
+}
+
+a.bt-action-edit span{
+	background-image: url("../img/edit.png");
 }
 
 #wrapper-logout{
