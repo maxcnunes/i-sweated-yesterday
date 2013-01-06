@@ -63,8 +63,9 @@ def register():
 			return render_template('users/register.html', form=form)
 
 		# create an user instance not yet stored in the database
-		user = User.NewUserToRegister(form.name.data, form.email.data,\
-						generate_password_hash(form.password.data))
+		user = User.CreateUser(form.name.data, form.email.data,\
+						generate_password_hash(form.password.data),\
+						form.receive_email_notification.data)
 
 		# insert the record in our database and commit it
 		db.session.add(user)
@@ -80,6 +81,46 @@ def register():
 		return redirect(url_for('users.index'))
 	return render_template('users/register.html', form=form)
 
+@mod.route('/edit/', methods=['GET', 'POST'])
+@requires_login
+def edit():
+	form = RegisterForm(request.form)
+
+	if request.method == 'GET':
+		form.name.data = g.user.name
+		form.email.data = g.user.email
+		form.receive_email_notification.data = g.user.receive_email_notification
+
+	if form.validate_on_submit():
+
+		userRegistered = User.query.filter(or_(User.name == form.name.data,\
+												User.email == form.email.data))\
+									.filter(User.id != g.user.id)\
+									.first()
+
+		# verify if this email or user is alredy used
+		if userRegistered is not None:
+			flash('Email or user already is registered for another person')
+			return render_template('users/edit.html', form=form)
+
+		# get user from the database
+		user = User.query.get(g.user.id)
+
+		# update values
+		user.name = form.name.data
+		user.email = form.email.data
+		user.password = generate_password_hash(form.password.data)
+		user.receive_email_notification = form.receive_email_notification.data
+
+		# update the record in our database and commit it
+		db.session.commit()
+
+		# flash will display a message to the user
+		flash('User edited successfully')
+
+		# redirect user to the 'index' method of the user module
+		return redirect(url_for('users.index'))
+	return render_template('users/edit.html', form=form)
 
 @mod.route('/logout/', methods=['GET'])
 def logout():

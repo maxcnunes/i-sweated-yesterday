@@ -9,8 +9,9 @@ class LoginForm(Form):
 class RegisterForm(Form):
 	name = TextField('NickName', [Required()])
 	email = TextField('Email address', [Required()])
+	receive_email_notification = BooleanField('Receive e-mail notifications')
 	password = PasswordField('Password', [Required()])
 	confirm = PasswordField('Repeat Password', [
 		Required(),
 		EqualTo('confirm', message='Passwords must match')
-		])
+	])

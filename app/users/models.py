@@ -24,13 +24,14 @@ class User(db.Model):
 	def __init__(self, id=None):
 		self.id = id
 
-	# Factory Constructor of a new user to register
+	# Factory Constructor to create a user filled
 	@classmethod
-	def NewUserToRegister(cls, name=None, email=None, password=None):
+	def CreateUser(cls, name=None, email=None, password=None, receive_email_notification=None):
 		_user = cls()
 		_user.name = name
 		_user.email = email
 		_user.password = password
+		_user.receive_email_notification = receive_email_notification
 		return _user
 	
 

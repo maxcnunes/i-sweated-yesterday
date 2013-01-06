@@ -2,34 +2,32 @@
 
 {% block content %}
 	<h2>{{ user.getNameTitle() }}</h2>
-	<b>Results</b>
+
+	<b>How you are going</b>
 	<ul id="profile-results">
 		<li><b>{{ "%02d" % user.getTotalExercisesCurrentWeek() }}</b> this week</li>
 		<li><b>{{ "%02d" % user.getTotalExercisesCurrentMonth() }}</b> this month</li>
 		<li><b>{{ "%02d" % user.getTotalExercises() }}</b> since the begin</li>
 	</ul>
+	<br>
+	<a class="bt-action bt-action-green bt-action-run" href="{{ url_for('exercises.idid') }}" style="width:95%">
+		<span style="text-align: center;line-height: 25px;font-size: 15px;">I Sweated Yesterday</span>
+	</a>
+	<div class="clear"></div>
 {% endblock %}
 
 {% block footer %}
-	<div style="float:left; width:60%">
-		<a class="bt-action bt-action-run" href="{{ url_for('exercises.idid') }}" style="width:90%">
-			<span style="height: 49px;
-text-align: center;
-line-height: 25px;
-font-size: 15px;">I Sweated Yesterday</span>
-		</a>
-	</div>
 
-	<div style="float:left; width:40%">
-		<a class="bt-action bt-action-list" href="{{ url_for('exercises.exercises_by_month') }}" style="width:90%">
+	<div>
+		<a class="bt-action bt-action-list" href="{{ url_for('exercises.exercises_by_month') }}" style="float:left; width: 33%;">
 			<span>Exercises</span>
 		</a>
-		<a class="bt-action bt-action-chart" href="{{ url_for('users.my_reports') }}" style="width:90%">
+		<a class="bt-action bt-action-chart" href="{{ url_for('users.my_reports') }}" style="float:left; width: 25%;">
 			<span>Charts</span>
 		</a>
+		<a class="bt-action bt-action-edit" href="{{ url_for('users.edit') }}" style="float:left; width: 23%;margin-right: 0px;">
+			<span>Edit</span>
+		</a>
 	</div>
-
-	
-
 
 {% endblock %}
