@@ -26,7 +26,7 @@
 			</div>
 			<div id="content" class="shadow">
 
-				{%- if user %}
+				{%- if session.user_id %}
 			    <a class="bt-action-logout" href="{{ url_for('users.logout') }}">
 					Logout
 				</a>
