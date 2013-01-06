@@ -1,6 +1,5 @@
 **~ TODO ~**
 
-- Add log for emails sent
 
 ***
 
@@ -14,5 +13,6 @@
 - Fix the selected date on datapicker 
 - Change the type of the chart 'total on week by month' to line
 - Add feature to user update profile values
+- Add log for emails sent
 
 
