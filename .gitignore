@@ -1,6 +1,6 @@
 *.py[cod]
 *.pyc # compiled python files
-log_notifications.log # logs file
+*.log # logs file
 
 # C extensions
 *.so
