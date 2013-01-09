@@ -1,6 +1,10 @@
+
+# Python compiled
 *.py[cod]
-*.pyc # compiled python files
-*.log # logs file
+*.pyc 
+
+# Logs
+*.log
 
 # C extensions
 *.so
