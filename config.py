@@ -3,8 +3,8 @@ _basedir = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = True
 
-ADMINS = frozenset(['youremail@yourdomain.com'])
-SECRET_KEY = 'SECRET_KEY_FOR_SESSION_SIGNING'
+ADMINS = frozenset([os.environ['ADMIN_EMAIL'])
+SECRET_KEY = os.environ['SECRET_KEY']
 
 
 # Config Postgre - Heroku
@@ -14,13 +14,12 @@ DATABASE_CONNECT_OPTION = {}
 THREADS_PER_PAGE = 8
 
 CSRF_ENABLED = True
-CSRF_SESSION_KEY = 'SOMETHING_IMPOSSIBLE_TO_GUEES'
+CSRF_SESSION_KEY = os.environ['CSRF_SESSION_KEY']
 
 
 #EMAIL SETTINGS
 MAIL_SERVER = 'smtp.gmail.com'
 MAIL_PORT = 465
 MAIL_USE_SSL = True
-MAIL_USERNAME = 'your_user@gmail.com'
-MAIL_PASSWORD = 'your_password'
-
+MAIL_USERNAME = os.environ['MAIL_USERNAME']
+MAIL_PASSWORD = os.environ['MAIL_PASSWORD']
