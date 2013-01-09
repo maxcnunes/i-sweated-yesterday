@@ -80,7 +80,7 @@ def general():
 def total_on_week_by_month():
 	# get all months a user have done exercises
 	all_months = db.session.query(Exercise.date)\
-						.group_by(extract('year', Exercise.date), extract('month', Exercise.date))\
+						.group_by(extract('year', Exercise.date), extract('month', Exercise.date), Exercise.date)\
 						.order_by(desc(Exercise.date))\
 						.filter(Exercise.user_id == g.user.id)\
 						.all()
@@ -116,7 +116,7 @@ def exercises_by_month():
 
 	# get all months a user have done exercises
 	all_months = db.session.query(Exercise.date)\
-						.group_by(extract('year', Exercise.date), extract('month', Exercise.date))\
+						.group_by(extract('year', Exercise.date), extract('month', Exercise.date), Exercise.date)\
 						.order_by(desc(Exercise.date))\
 						.filter(Exercise.user_id == g.user.id)\
 						.all()
@@ -191,9 +191,9 @@ def get_exercises_by_month(date_search):
 	date_selected = DateHelper.generated_id_by_month_year_to_date(date_search)
 
 	exercises = db.session.query(Exercise)\
-		.filter(Exercise.user_id == g.user.id)\
-		.filter(extract('month', Exercise.date) == date_selected.month)\
-		.filter(extract('year', Exercise.date) == date_selected.year)\
-		.all()
+		.filter(
+			Exercise.user_id == g.user.id,\
+			extract('month', Exercise.date) == date_selected.month,\
+		).all()
 
 	return exercises
