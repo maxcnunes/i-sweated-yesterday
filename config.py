@@ -1,9 +1,9 @@
 import os
 _basedir = os.path.abspath(os.path.dirname(__file__))
 
-DEBUG = True
+DEBUG = False
 
-ADMINS = frozenset([os.environ['ADMIN_EMAIL'])
+ADMINS = frozenset([os.environ['ADMIN_EMAIL']])
 SECRET_KEY = os.environ['SECRET_KEY']
 
 
