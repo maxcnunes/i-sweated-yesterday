@@ -11,6 +11,8 @@ from app.users.constants import SESSION_NAME_USER_ID
 from app.users.models import User
 from app.users.requests import app_before_request
 from app.users.decorators import requires_login
+from app.users.notifications import send_email_to_users_have_forgotten_add_last_exercise
+
 
 
 mod = Blueprint('exercises', __name__, url_prefix='/exercises')
@@ -185,6 +187,18 @@ def mark_exercise_by_email(email_token):
 	flash('Keep fitness and do it again tomorrow')
 
 	return redirect(url_for('index'))
+
+
+@mod.route("/send_exercise_notifications/", methods=['GET'])
+def send_exercise_notifications():
+
+	try:
+		# send notification
+		send_email_to_users_have_forgotten_add_last_exercise()
+	except:
+		return 'Fail'
+
+	return 'Sent'
 
 
 def get_exercises_by_month(date_search):
