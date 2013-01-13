@@ -12,6 +12,7 @@ from app.users.models import User
 from app.users.requests import app_before_request
 from app.users.decorators import requires_login
 from app.users.notifications import send_email_to_users_have_forgotten_add_last_exercise
+from app.exercises.decorators import requires_basic_auth
 
 
 
@@ -190,6 +191,7 @@ def mark_exercise_by_email(email_token):
 
 
 @mod.route("/send_exercise_notifications/", methods=['GET'])
+@requires_basic_auth
 def send_exercise_notifications():
 
 	try:
