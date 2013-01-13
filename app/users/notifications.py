@@ -27,7 +27,7 @@ def send_email_to_users_have_forgotten_add_last_exercise():
 	reset_exercise_token_all_users()
 	logging.info('Reseted token e-mails of all users')
 
-	url_app = u'http://maxcnunes.pythonanywhere.com/'
+	url_app = u'http://isweatedyesterday.herokuapp.com/'
 	
 	users_to_send_notifications = get_all_users_want_receive_mail_notification()
 	logging.info('Amount of users to send notification: %02d', len(users_to_send_notifications))
