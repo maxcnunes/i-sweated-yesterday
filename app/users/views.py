@@ -135,6 +135,7 @@ def logout():
 
 
 @mod.route('/my_reports', methods=['GET'])
+@requires_login
 def my_reports():
 	return render_template('users/my_reports.html')
 
