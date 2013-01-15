@@ -1,6 +1,6 @@
 # third party imports
 from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for, abort
-from sqlalchemy.sql import func, extract, desc
+from sqlalchemy.sql import func, extract, desc, label
 
 # local application imports
 from app import db
@@ -82,32 +82,36 @@ def general():
 @requires_login
 def total_on_week_by_month():
 	# get all months a user have done exercises
-	all_months = db.session.query(Exercise.date)\
-						.group_by(extract('year', Exercise.date), extract('month', Exercise.date), Exercise.date)\
-						.order_by(desc(Exercise.date))\
+	all_months = db.session.query(label('year', extract('year', Exercise.date)), label('month', extract('month', Exercise.date)))\
+						.group_by('year', 'month')\
+						.order_by('year desc, month desc')\
 						.filter(Exercise.user_id == g.user.id)\
 						.all()
 
 	form = TotalOnWeekByMonthForm(request.form)
+
+	# convert list result to list dates
+	all_months_as_date = [DateHelper.string_to_date(('%i/%i/1' % (year, month))) for (year, month) in all_months]
+
 	# set all months as options of SELECT element on the form
-	form.months.choices = [(DateHelper.generate_id_by_month_year(item.date), 
-							DateHelper.date_to_year_month_string(item.date)) 
-							for item in all_months]
+	form.months.choices = [(DateHelper.generate_id_by_month_year(item), 
+							DateHelper.date_to_year_month_string(item)) 
+							for item in all_months_as_date]
 
 	# when is a POST action
 	if form.validate_on_submit():
 		date_selected = DateHelper.generated_id_by_month_year_to_date(form.months.data)
 
 		# get the total exercises a user have done per week on a selected month
-		results = db.session.query(func.strftime('%W', Exercise.date).label('week'), func.count(Exercise.date).label('total'))\
-						.group_by(func.strftime('%W', Exercise.date))\
+		results = db.session.query(extract('week', Exercise.date).label('week'), func.count(Exercise.date).label('total'))\
+						.group_by(extract('week', Exercise.date))\
 						.filter(extract('month', Exercise.date) == date_selected.month)\
 						.filter(extract('year', Exercise.date) == date_selected.year)\
 						.filter(Exercise.user_id == g.user.id)\
 						.all()
 
 		# convert list to dictonary
-		data = {('Week %s on year' % (week)): str(total) for (week, total) in results}
+		data = {('Week %i of the year' % (week)): str(total) for (week, total) in results}
 
 		return render_template('exercises/total_on_week_by_month.html', form=form, data=data)
 	return render_template('exercises/total_on_week_by_month.html', form=form)
