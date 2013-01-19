@@ -1,5 +1,7 @@
 **~ TODO ~**
-
+- Fix charts orderby
+- Create unit tests
+- Improve js structure
 
 ***
 
