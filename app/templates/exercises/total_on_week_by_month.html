@@ -9,13 +9,16 @@
  * Response data
  */
 var data_items = [
-	{%- for key, value in data.iteritems() %}
-	['{{ key.title() }}', {{ value }}],
-	{%- endfor %}           
+    {%- for key, value in data.iteritems() %}
+    ['{{ key.title() }}', {{ value }}],
+    {%- endfor %}           
 ];
+
+var type_chart = 'line';
+
+require(['pags/main.charts']);
 </script>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript" src="/static/js/chart-line.js"></script>
+
 {%- endif %}
 {% endblock %}
 

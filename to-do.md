@@ -1,7 +1,7 @@
 **~ TODO ~**
-- Fix charts orderby
+
 - Create unit tests
-- Improve js structure
+
 
 ***
 
@@ -16,5 +16,7 @@
 - Change the type of the chart 'total on week by month' to line
 - Add feature to user update profile values
 - Add log for emails sent
+- Fix charts orderby
+- Improve js structure
 
 
