@@ -194,6 +194,7 @@ def get_exercises_by_month(date_search):
 	user_has_exercises = db.session.query(exists().where(Exercise.user_id == g.user.id)).scalar()
 
 	if not user_has_exercises:
+		flash('You don\'t have any exercises registered')
 		return []
 
 	exercises = db.session.query(Exercise)\
