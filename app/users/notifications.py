@@ -35,7 +35,7 @@ def send_email_to_users_have_forgotten_add_last_exercise():
 	for user in users_to_send_notifications:
 		user.email_exercise_token = str(uuid.uuid1())
 
-		url_confirmation = '%sexercises/mark_exercise_by_email?key=%s' % (url_app, user.email_exercise_token)
+		url_confirmation = '%sexercises/mark_exercise_by_email/%s' % (url_app, user.email_exercise_token)
 
 		msg =	'<h2>Did you sweat yesterday?</h2>'\
 			 	'You have not marked yet a exercise for yesterday.<br/>'\
