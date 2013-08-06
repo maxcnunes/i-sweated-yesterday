@@ -43,9 +43,9 @@ define('i.did.exercise', ['jquery', 'jquery.ui'], function ($) {
             var selected_field = $('input:radio:checked', '#date_exercise_type');
             if (selected_field.is('[value="another_day"]')) {
                 $('#datepicker').datepicker('setDate', yesterday);
-                $('.bt-select-date').show();
+                $('.bt-select-date').css('display', 'inline-block');
             } else {
-                $('.bt-select-date').hide();
+                $('.bt-select-date').css('display', 'none');
                 $('#datepicker').slideUp();
 
                 $('#date-selected').text(yesterday);

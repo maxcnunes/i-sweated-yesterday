@@ -250,7 +250,7 @@ a.bt-action-logout {
 a.bt-select-date {
 	width: 16px;
 	height: 16px;
-	display: inline-block;
+	display: none;
 	vertical-align: middle;
 	background: url(../img/calendar.png) no-repeat center;
 }

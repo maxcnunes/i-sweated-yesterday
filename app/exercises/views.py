@@ -1,6 +1,6 @@
 # third party imports
 from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for, abort
-from sqlalchemy.sql import func, extract, desc, label
+from sqlalchemy.sql import func, extract, desc, label, exists
 
 # local application imports
 from app import db
@@ -190,6 +190,11 @@ def send_exercise_notifications():
 
 def get_exercises_by_month(date_search):
 	date_selected = DateHelper.generated_id_by_month_year_to_date(date_search)
+
+	user_has_exercises = db.session.query(exists().where(Exercise.user_id == g.user.id)).scalar()
+
+	if not user_has_exercises:
+		return []
 
 	exercises = db.session.query(Exercise)\
 		.order_by(Exercise.date)\
