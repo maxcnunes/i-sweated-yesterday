@@ -5,6 +5,8 @@ class LoginForm(Form):
 	email = TextField('Email address', [Required(), Email()])
 	password = PasswordField('Password', [Required()])
 
+class RecoverPasswordForm(Form):
+	email = TextField('Email address', [Required(), Email()])
 
 class RegisterForm(Form):
 	name = TextField('NickName', [Required()])

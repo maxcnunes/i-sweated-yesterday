@@ -35,10 +35,10 @@ def send_email_to_users_have_forgotten_add_last_exercise():
 	for user in users_to_send_notifications:
 		user.email_exercise_token = str(uuid.uuid1())
 
-		url_confirmation = '%sexercises/mark_exercise_by_email/%s' % (url_app, user.email_exercise_token)
+		url_confirmation = '%sexercises/mark_exercise_by_email?key=%s' % (url_app, user.email_exercise_token)
 
 		msg =	'<h2>Did you sweat yesterday?</h2>'\
-			 	'You have no marked yet a exercise for yesterday.<br/>'\
+			 	'You have not marked yet a exercise for yesterday.<br/>'\
 				'If you forgot, please just submit '\
 				'<a href="' + url_confirmation + '">here</a> to automatically mark a exercise for yesterday.<br/>'\
 				'Or access the I sweated yesterday - Application '\
@@ -52,6 +52,22 @@ def send_email_to_users_have_forgotten_add_last_exercise():
 	logging.info('Commit changes in to database')
 
 	logging.info('End send e-mails notificatios')
+
+
+def send_email_to_recover_user_password(user_email):
+	user = User.query.filter_by(email=user_email).first()
+	user.generate_key_recover_password()
+
+	url_app = u'http://isweatedyesterday.herokuapp.com/'
+	url_confirmation = '%susers/recover_password_key/%s' % (url_app, user.key_recover_password)
+
+	msg =	'<h2>Password Recovery</h2>'\
+			'To recover your password click '\
+			'<a href="' + url_confirmation + '">here</a>'
+
+	send_async_email('I sweated yesterday - Password Recovery', user.email, msg)
+	
+	db.session.commit()
 
 
 def get_all_users_want_receive_mail_notification():

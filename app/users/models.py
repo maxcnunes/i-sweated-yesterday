@@ -1,5 +1,6 @@
 # third party imports
 from sqlalchemy.sql import extract, func
+import uuid
 
 # local application imports
 from app import db
@@ -18,6 +19,7 @@ class User(db.Model):
 	status = db.Column(db.SmallInteger, default=USER.NEW)
 	email_exercise_token = db.Column(db.String(50))
 	receive_email_notification = db.Column(db.Boolean(), default=False)
+	key_recover_password = db.Column(db.String(100))
 	exercises = db.relationship('Exercise', backref='user', lazy='dynamic')
 
 	# Class Constructor
@@ -74,6 +76,11 @@ class User(db.Model):
 						.filter(Exercise.user_id == self.id)
 						.filter(Exercise.date == date_exercise)
 						.all()) > 0)
+
+	
+	def generate_key_recover_password(self):
+		self.key_recover_password = str(uuid.uuid1())
+		return self.key_recover_password
 
 	def __repr__(self):
 		return '<User %r>' % (self.name)
