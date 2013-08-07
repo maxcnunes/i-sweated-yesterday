@@ -13,29 +13,53 @@ class User(db.Model):
 	# Map model to db table
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(50), unique=True)
+	username = db.Column(db.String(50), unique=True)
 	email = db.Column(db.String(120), unique=True)
-	password = db.Column(db.String(100))
 	role = db.Column(db.SmallInteger, default=USER.USER)
 	status = db.Column(db.SmallInteger, default=USER.NEW)
 	email_exercise_token = db.Column(db.String(50))
 	receive_email_notification = db.Column(db.Boolean(), default=False)
-	key_recover_password = db.Column(db.String(100))
+	oauth_key = db.Column(db.String(100))
 	exercises = db.relationship('Exercise', backref='user', lazy='dynamic')
 
 	# Class Constructor
 	def __init__(self, id=None):
 		self.id = id
 
+	# @classmethod
+	# def CreateUser(cls, name=None, email=None, receive_email_notification=None, oauth_key=None):
+	# 	_user = cls()
+	# 	_user.name = name
+	# 	_user.email = email
+	# 	_user.receive_email_notification = receive_email_notification
+	# 	_user = oauth_key
+	# 	return _user
+
 	# Factory Constructor to create a user filled
 	@classmethod
-	def CreateUser(cls, name=None, email=None, password=None, receive_email_notification=None):
-		_user = cls()
-		_user.name = name
-		_user.email = email
-		_user.password = password
-		_user.receive_email_notification = receive_email_notification
-		return _user
+	def create_or_update_user_from_oauth(cls, name=None, username=None, email=None, password=None, oauth_key=None):
+		is_new = False
+		user = User.query.filter_by(email=email).first()
+		if user is None:
+			user = cls()
+			is_new = True
+
+		user.name = name
+		user.username = username
+		user.email = email
+		user.password = password
+		user.oauth_key = oauth_key
+
+		if is_new:
+			user.receive_email_notification = True
+			db.session.add(user)
+			
+		db.session.commit()
+		return user
 	
+
+	def get_picture(self):
+		return 'http://graph.facebook.com/%s/picture' % self.username
 
 	def getNameTitle(self):
 		return self.name.title()

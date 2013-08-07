@@ -5,8 +5,8 @@ from app.users.constants import SCHEDULE_AUTH_USERNAME, SCHEDULE_AUTH_PASSWORD
 
 
 def check_auth(username, password):
-    """This function is called to check if a username /
-    password combination is valid.
+    """This function is called to check if a username password combination is valid. /
+       Used just for the Schedule process.
     """
     return username == SCHEDULE_AUTH_USERNAME and password == SCHEDULE_AUTH_PASSWORD
 

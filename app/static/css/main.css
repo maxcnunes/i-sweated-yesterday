@@ -274,6 +274,21 @@ input[type="submit"].btn-ok {
 	color:#43434b;
 }
 
+#btn-login{
+	display: inline-block;
+	width: 150px;
+	height: 23px;
+	background: #ededed url(../img/signin_facebook.png) no-repeat center top;
+}
+
+#btn-login:hover{
+	background-position: center center;
+}
+
+#btn-login:active{
+	background-position: center bottom;
+}
+
 
 /* Messages
 -----------------------------------------------------------------------------*/

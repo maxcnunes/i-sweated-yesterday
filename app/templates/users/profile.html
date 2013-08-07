@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+	<img src="{{ user.get_picture() }}" />
 	<h2>{{ user.getNameTitle() }}</h2>
 
 	<b>How you are going</b>

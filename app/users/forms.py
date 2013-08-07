@@ -2,8 +2,9 @@ from flask.ext.wtf import Form, TextField, PasswordField, BooleanField
 from flask.ext.wtf import Required, Email, EqualTo
 
 class LoginForm(Form):
-	email = TextField('Email address', [Required(), Email()])
-	password = PasswordField('Password', [Required()])
+	pass
+	# email = TextField('Email address', [Required(), Email()])
+	# password = PasswordField('Password', [Required()])
 
 class RecoverPasswordForm(Form):
 	email = TextField('Email address', [Required(), Email()])
